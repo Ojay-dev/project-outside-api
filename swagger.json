@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "My API",
-    "description": "A sample API for demonstrating Swagger"
+    "title": "Project Outside",
+    "description": "Project Outside API is a musical venue and artist booking API that facilitates the discovery and bookings of shows between local performing artists and venues."
   },
   "host": "localhost:3000",
   "basePath": "/",
