@@ -10,18 +10,18 @@ exports.createArtist = async (req, res) => {
       return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    const { name, email, phone, city, state, image_link, facebook_link } =
+    const { name, email, phone, city, state, image_link, instagram_handle } =
       req.body;
 
     // Create a new Artist
     const artist = new Artist({
-      name: name,
-      email: email,
-      phone: phone,
-      city: city,
-      state: state,
-      image_link: image_link,
-      facebook_link: facebook_link
+      name,
+      email,
+      phone,
+      city,
+      state,
+      image_link,
+      instagram_handle
     });
 
     // Save the Artist

@@ -5,9 +5,9 @@
     "title": "Project Outside",
     "description": "Project Outside API is a musical venue and artist booking API that facilitates the discovery and bookings of shows between local performing artists and venues."
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": ["http"],
+  "host": "https://project-outside.onrender.com",
+  "basePath": "/api/v1",
+  "schemes": ["https"],
   "paths": {
     "/artists/{id}": {
       "get": {
@@ -296,7 +296,7 @@
                 "image_link": {
                   "type": "string"
                 },
-                "facebook_link": {
+                "instagram_handle": {
                   "type": "string"
                 }
               }
@@ -960,7 +960,7 @@
         "image_link": {
           "type": "string"
         },
-        "facebook_link": {
+        "instagram_handle": {
           "type": "string"
         }
       }

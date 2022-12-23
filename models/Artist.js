@@ -37,7 +37,7 @@ const artistSchema = new Schema(
       required: 'You must supply a state!'
     },
     image_link: String,
-    facebook_link: String,
+    instagram_handle: String,
     created: {
       type: Date,
       default: Date.now

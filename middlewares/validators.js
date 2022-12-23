@@ -29,7 +29,11 @@ exports.createArtistValidator = [
     .trim()
     .escape()
     .withMessage('Image link is required'),
-  check('facebook_link').optional().isURL().withMessage('Invalid Facebook link')
+  check('instagram_handle')
+    .optional()
+    .trim()
+    .escape()
+    .withMessage('Invalid string')
 ];
 
 exports.searchValidator = [
