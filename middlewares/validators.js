@@ -33,7 +33,6 @@ exports.createArtistValidator = [
     .optional()
     .trim()
     .escape()
-    .withMessage('Invalid string')
 ];
 
 exports.searchValidator = [
