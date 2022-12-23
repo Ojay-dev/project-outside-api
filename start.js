@@ -4,10 +4,17 @@ require('dotenv').config();
 
 // Connect to our Database and handle any bad connections
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
-mongoose.connection.on('error', (err) => {
+
+mongoose.connect(process.env.DATABASE);
+
+const db = mongoose.connection;
+db.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+});
+
+db.once('open', function() {
+  console.log('Connected to MongoDB');
 });
 
 // import all of our models

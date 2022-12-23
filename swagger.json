@@ -1,0 +1,1037 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My API",
+    "description": "A sample API for demonstrating Swagger"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/artists/{id}": {
+      "get": {
+        "tag": "Artists",
+        "description": "Returns a single artist with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the artist to retrieve",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The artist with the specified ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "$ref": "#/definitions/Artist"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists": {
+      "get": {
+        "description": "Returns a list of artists",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to retrieve (optional, default is 1)",
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of artists per page (optional, default is 10)",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "artists": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Artist"
+                  }
+                },
+                "total_artists": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "page": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "pages": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{page}": {
+      "get": {
+        "description": "Returns a list of artists",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "The page number to retrieve",
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of artists per page (optional, default is 10)",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "artists": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Artist"
+                  }
+                },
+                "total_artists": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "page": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "pages": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/search": {
+      "post": {
+        "description": "Searches for artists by name",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "search": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of matching artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Artist"
+                  }
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while searching for artists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/create": {
+      "post": {
+        "description": "Creates a new artist",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "image_link": {
+                  "type": "string"
+                },
+                "facebook_link": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "artist": {
+                  "$ref": "#/definitions/Artist"
+                },
+                "total_artists": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "errors": {
+                  "type": "array"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while creating the artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{id}/edit": {
+      "patch": {
+        "description": "Updates an artist with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Artist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "$ref": "#/definitions/Artist"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid update data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while updating the artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{id}/delete": {
+      "delete": {
+        "description": "Deletes an artist with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while deleting the artist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/{id}": {
+      "get": {
+        "description": "Returns a single venue with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The venue with the specified ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "$ref": "#/definitions/Venue"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues": {
+      "get": {
+        "description": "Returns a list of venues",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "integer",
+            "description": "The page number of the list of venues to return"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of venues to return per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "venues": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Venue"
+                  }
+                },
+                "total_venues": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "page": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "pages": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/{page}": {
+      "get": {
+        "description": "Returns a list of venues in the specified page",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "description": "The maximum number of venues to return per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "venues": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Venue"
+                  }
+                },
+                "total_venues": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "page": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "pages": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while getting the venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/search": {
+      "post": {
+        "description": "Searches for venues by name",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "body",
+            "required": true,
+            "description": "The search string to use for the search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "body",
+            "required": false,
+            "description": "The page number of the search results to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of matching venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Venue"
+                  }
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while searching for venues",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/create": {
+      "post": {
+        "description": "Creates a new venue",
+        "parameters": [
+          {
+            "name": "venue",
+            "in": "body",
+            "required": true,
+            "description": "The venue to create",
+            "schema": {
+              "$ref": "#/definitions/Venue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "venue": {
+                  "$ref": "#/definitions/Venue"
+                },
+                "total_venues": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "errors": {
+                  "type": "array"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while creating the venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/{id}/edit": {
+      "patch": {
+        "description": "Updates the venue with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the venue to update",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "venue",
+            "in": "body",
+            "required": true,
+            "description": "The updated venue information",
+            "schema": {
+              "$ref": "#/definitions/Venue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "$ref": "#/definitions/Venue"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid update data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while updating the venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues/{id}/delete": {
+      "delete": {
+        "description": "Deletes the venue with the specified ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the venue to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occurred while deleting the venue",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Artist": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "mongodb-objectid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "image_link": {
+          "type": "string"
+        },
+        "facebook_link": {
+          "type": "string"
+        }
+      }
+    },
+    "Venue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "website": {
+          "type": "string"
+        },
+        "seeking_talent": {
+          "type": "boolean"
+        },
+        "seeking_description": {
+          "type": "string"
+        },
+        "image_link": {
+          "type": "string"
+        },
+        "facebook_link": {
+          "type": "string"
+        },
+        "shows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Show"
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "PaginatedVenues": {
+      "type": "object",
+      "properties": {
+        "venues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Venue"
+          }
+        },
+        "total_venues": {
+          "type": "integer"
+        },
+        "pages": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
